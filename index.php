@@ -13,6 +13,8 @@
  * @since   Timber 0.1
  */
 
+use Timber\Timber;
+
 $context          = Timber::context();
 $context['posts'] = Timber::get_posts();
 $context['foo']   = 'bar';

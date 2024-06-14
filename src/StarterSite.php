@@ -1,5 +1,6 @@
 <?php
 
+use Timber\Timber;
 use Timber\Site;
 
 /**
@@ -112,7 +113,7 @@ class StarterSite extends Site
 	public function wp_enqueue_scripts()
 	{
 		wp_enqueue_script('timber-starter', get_template_directory_uri() . '/dist/js/main.js', [], '1.2', true);
-		// wp_enqueue_style('timber-starter', get_template_directory_uri() . '/dist/css/main.css', [], '1.2', true);
+		wp_enqueue_style('timber-starter', get_template_directory_uri() . '/dist/css/main.css', [], '1.2');
 	}
 
 	/**
@@ -125,6 +126,12 @@ class StarterSite extends Site
 		$text .= ' bar!';
 
 		return $text;
+	}
+
+	public function caracteres($author) {
+		if(empty($author)) return 0;
+
+		return strlen($author->name());
 	}
 
 	/**
@@ -141,6 +148,7 @@ class StarterSite extends Site
 		// $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
 
 		$twig->addFilter(new Twig\TwigFilter('myfoo', [$this, 'myfoo']));
+		$twig->addFunction(new Twig\TwigFunction('caracteres', [$this, 'caracteres']));
 
 		return $twig;
 	}

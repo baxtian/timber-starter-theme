@@ -9,34 +9,16 @@
       "name": "jarednova"
     }
   ],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
-    }
-  ],
-  "require": {
-    "timber/timber": "2.x-dev"
-  },
-  "require-dev": {
-    "automattic/wordbless": "^0.4.2",
-    "yoast/wp-test-utils": "^1.0"
-  },
-  "extra": {
-    "installer-paths": {
-      "vendor/automattic/wordbless/": [
-        "automattic/wordbless"
-      ]
-    },
-    "wordpress-install-dir": "wordpress"
+  "extra": {},
+  "scripts": {
+    "test": "phpunit"
   },
   "config": {
     "allow-plugins": {
-      "roots/wordpress-core-installer": true,
-      "composer/installers": true
+      "roots/wordpress-core-installer": true
     }
   },
-  "scripts": {
-    "test": "phpunit"
+  "require": {
+    "timber/timber": "^2.2"
   }
 }

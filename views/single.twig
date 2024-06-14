@@ -6,7 +6,15 @@
 			<img src="{{ post.thumbnail.src|resize(1200, 300) }}">
 			<section class="article-content">
 				<h1 class="article-h1">{{ post.title }}</h1>
-				<a href="{{ post.link }}">{{ _e('edit') }}</a>
+				{% if fn('current_user_can', 'edit_post', post.ID) %}
+				<a href="{{ post.edit_link }}">{{ _e('edit') }}</a>
+				{% endif %}
+				{% if post.coordinates %}
+				<p>Coordenadas: {{ post.coordinates }}</p>
+				{% endif %}
+				<p>
+					Letras autor: {{ caracteres(post.author) }}
+				</p>
 				<p class="blog-author">
 					<span>By</span><a href="{{post.author.path}}"> {{ post.author.name }} </a><span>&bull;</span> <time datetime="{{ post.date|date('Y-m-d H:i:s') }}">{{ post.date }}</time>
 				</p>
