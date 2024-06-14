@@ -43,9 +43,9 @@ import * as dartSass from 'sass';
 const sass = gulpSass(dartSass);
 
 const css = {
-    src: dir.src + 'scss/style.scss',
+    src: dir.src + 'scss/main.scss',
     watch: dir.src + 'scss/**/*',
-    build: dir.build,
+    build: dir.build + 'css',
     sassOpts: {
         outputStyle: 'compressed',
         precision: 3,
