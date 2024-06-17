@@ -1,11 +1,21 @@
 @use "../base/vars";
 @use "../base/colors";
 
-body.blog {
+body.blog,
+body.search,
+body.archive {
 	section.content-wrapper {
+		& > h1,
+		& > h2 {
+			width: vars.$max-width;
+			margin: 0 auto;
+			font-size: 3em;
+			line-height: 1em;
+			margin-bottom: 0.5em;
+		}
 		.wrapper {
 			width: vars.$max-width;
-				margin: 0 auto;
+			margin: 0 auto;
 
 			& > h1,
 			& > h2 {

@@ -49,6 +49,7 @@ header.header {
 						display: none;
 						flex-direction: column;
 						position: absolute;
+						background: white;
 
 						li {
 							color: colors.$nav-link-submenu;
@@ -60,6 +61,9 @@ header.header {
 					}
 					&:hover > ul {
 						display: block;
+						li {
+							padding-left: 20px;
+						}
 					}
 				}
 
