@@ -63,21 +63,11 @@ const css = {
 };
 
 // CSS processing
-function processPrimarySass(dev = false) {
+
+async function processSass(dev = false) {
     return src(css.src)
         .pipe(sass(dev ? css.devOpts : css.sassOpts))
         .pipe(dest(`${css.build}`));
-}
-
-function processOtherSass(dev = false) {
-    return src([css.watch, `!${css.src}`])
-        .pipe(sass(dev ? css.devOpts : css.sassOpts))
-        .pipe(dest(`${css.build}css`));
-}
-
-async function processSass(dev = false) {
-    processPrimarySass(dev);
-    processOtherSass(dev);
 }
 
 gulp.task('css', async () => {

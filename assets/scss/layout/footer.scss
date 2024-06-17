@@ -1,0 +1,9 @@
+@use "../base/vars";
+@use "../base/colors";
+
+footer#footer {
+	width: vars.$max-width;
+	margin: 20px auto 0;
+	padding: 20px 0;
+	border-top: 3px solid colors.$header-border;
+}

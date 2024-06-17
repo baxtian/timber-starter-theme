@@ -1,0 +1,87 @@
+@use "../base/vars";
+@use "../base/colors";
+
+// Contenedor Menu Base
+header.header {
+	width: 100%;
+	border-top: 3px solid colors.$header-border;
+	background: colors.$header-background;
+	transition: padding 0.9s;
+
+	// Admin
+	body.admin-bar & {
+		top: 46px !important;
+	}
+
+	.wrapper {
+		width: vars.$max-width;
+		margin: 0 auto;
+		display: flex;
+		display: -ms-flexbox;
+		gap: 20px;
+		align-items: center;
+		justify-content: space-between;
+		max-width: vars.$max-width;
+		margin: 0 auto;
+		padding: 20px 0 30px;
+		transition: padding vars.$transition-time;
+
+		.hdr-logo {
+			width: 300px;
+		}
+
+		nav {
+			flex: 1 1 auto;
+			ul {
+				display: flex;
+				flex-direction: row;
+				width: vars.$max-width;
+				margin: 0 auto;
+				list-style: none;
+				gap: 20px;
+
+				li {
+					position: relative;
+
+					ul {
+						width: auto;
+						padding-right: 20px;
+						display: none;
+						flex-direction: column;
+						position: absolute;
+
+						li {
+							color: colors.$nav-link-submenu;
+							line-height: 1.25em !important;
+							text-decoration: none !important;
+							text-transform: capitalize !important;
+							transition: color 0.6s !important;
+						}
+					}
+					&:hover > ul {
+						display: block;
+					}
+				}
+
+				a {
+					display: block;
+					width: 100%;
+					padding: #{vars.$base-margin} 0;
+					border-bottom: 1px solid #e5e5e5;
+					font-weight: vars.$bold;
+					font-family: vars.$font-body;
+					color: colors.$nav-link;
+					text-decoration: none;
+					transition: color 0.6s;
+					transition: font-size vars.$transition-time,
+						color vars.$transition-time, border-bottom 0.3s;
+
+					&:hover,
+					.current-menu-item & {
+						color: colors.$nav-link-hover;
+					}
+				}
+			}
+		}
+	}
+}

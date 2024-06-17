@@ -1,0 +1,30 @@
+@use "../base/vars";
+@use "../base/colors";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	font-family: vars.$font-body;
+	font-weight: normal;
+	line-height: 1.38em;
+	color: colors.$color-regular;
+	font-size: 16px;
+}
+
+a {
+	text-decoration: none;
+	color: colors.$color-primary;
+	transition: background vars.$transition-time, color vars.$transition-time;
+}
+
+iframe {
+	max-width: 100%;
+}
+
+pre {
+	overflow-x: scroll;
+}

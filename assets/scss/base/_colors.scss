@@ -1,0 +1,54 @@
+// Colores 
+$color-light: #ffffff;
+$color-dark: #2c2d2e;
+
+$color-primary: #032631; 
+$color-secundary: #8f8f8f;
+$color-tertiary: #666666;
+$color-background: #f4ede6;
+
+$color-title: $color-primary;
+$color-regular: $color-tertiary;
+
+
+// Menu
+// Menu--top
+$header-border: $color-secundary;
+
+// Menu--main 
+$header-background: #ffffff;
+$nav-link: $color-secundary;
+$nav-link-hover: $color-primary;
+
+// Menu--fixed
+$header-background-fixed: #ffffff;
+$nav-link-fixed: $color-primary;
+
+// Menu slide - Movil 
+$navbar__menu-background: $color-light;
+
+// Submenu 
+$submenu-background: $color-light;
+$nav-link-submenu: $color-secundary;
+
+// Enlace 
+$enlace: $color-secundary;
+$enlace-hover: rgba($color: $color-secundary, $alpha: 0.5);
+
+// Footer
+$footer-background: rgba($color: $color-primary, $alpha: 1.0);
+$footer-text: #ffffff;
+
+// Menu footer
+$footer-menu-link: rgba(255, 255, 255, 0.76);
+$footer-menu-link-hover: rgba($color: $color-primary, $alpha: 1.0);
+
+// Social media icon 
+$social-media-icon: $color-primary;
+$social-media-icon-hover: $color-secundary;
+$footer-social-media-icon: $color-light;
+$footer-social-media-icon-hover: $color-secundary;
+
+// Banner Post
+$banner-background:rgba($color: $color-primary, $alpha: 1.0);;
+

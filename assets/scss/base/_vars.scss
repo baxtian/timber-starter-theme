@@ -1,0 +1,60 @@
+/* Tipografia */
+/***********************************/
+// Fuente los títulos y los textos de las entradas principales
+$font-title: 'Montserrat', sans-serif;
+// Fuente cuerpos de texto en general.
+$font-body: 'Montserrat', sans-serif;
+
+
+$thin: 100;
+$extra-light:200;
+$light:300;
+$regular:400;
+$medium:500;
+$semi-bold:600;
+$bold: 700;
+$extra-bold: 800;
+$black: 900;
+
+/* Font size */
+$min-breakpoint: 320px;
+$max-breakpoint: 2000px;
+$min-size: 13px;
+$max-size: 21px;
+$unit: px; 
+/***********************************/
+/*  Contenedores  */
+$max-width: 1140px;
+$width: 90%;
+
+/* Columnas Flex*/
+$grid-columns: 12 !default;
+$size: 1;
+
+
+/* MENU */
+/* Ancho Menu */
+$nav-width-logo-center: 100%;
+
+
+/* Menu normal */
+$navbar__toogle: 36px;
+
+/* Animaciones menu */
+$transition-time: 700ms;
+/* Submenu */
+$width-submenu: 15rem;
+
+/* Footer */
+$footer-width: #{$width};
+
+/* Main */
+// Sreen 1280x720
+$padding-main: 154px;
+
+/* Banner Post */
+$title-font-size: calc(1.375rem + 1.5vw);
+
+
+/* Margen base */
+$base-margin: 10px;

@@ -1,0 +1,29 @@
+@use "../base/vars";
+@use "../base/colors";
+
+body.single-post {
+	article {
+		& > * {
+			width: vars.$max-width;
+			margin: 0 auto;
+			display: block;
+
+			&.alignwide {
+				width: 100%;
+			}
+
+			&.alignfull {
+				width: 100%;
+				height: 110vh;
+			}
+		}
+
+		.article-h1 {
+			padding-top: 10px;
+		}
+
+		p {
+			margin-bottom: 0.6em;
+		}
+	}
+}

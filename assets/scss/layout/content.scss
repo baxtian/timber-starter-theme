@@ -1,0 +1,32 @@
+@use "../base/vars";
+@use "../base/colors";
+
+body.blog {
+	section.content-wrapper {
+		.wrapper {
+			width: vars.$max-width;
+				margin: 0 auto;
+
+			& > h1,
+			& > h2 {
+				width: vars.$max-width;
+				margin: 0 auto;
+				font-size: 3em;
+				line-height: 1em;
+				margin-bottom: 0.5em;
+			}
+
+			article.tease {
+				padding-bottom: 20px;
+				h2 {
+					padding-bottom: 5px;
+				}
+				img {
+					margin-top: 10px;
+					width: 100px;
+					height: auto;
+				}
+			}
+		}
+	}
+}

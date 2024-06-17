@@ -1,0 +1,27 @@
+@use "../base/vars";
+@use "../base/colors";
+
+section.article-content {
+	.article-h1 {
+		width: vars.$max-width;
+		margin: 0 auto;
+		font-size: 3em;
+		line-height: 1em;
+		margin-bottom: 0.5em;
+	}
+	.article-body {
+		& > * {
+			width: vars.$max-width;
+			margin: 0 auto;
+
+			&.alignwide {
+				width: 100%;
+			}
+
+			&.alignfull {
+				width: 100%;
+				height: 110vh;
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+@use "../base/vars";
+@use "../base/colors";
+
+nav.pagination-block {
+	margin: 10px auto;
+	ul {
+		display: flex;
+		gap: 10px;
+		list-style: none;
+
+		a,
+		span,
+		button {
+			font-size: 1rem;
+			border: none;
+			background: none;
+			line-height: 1em;
+		}
+	}
+}
