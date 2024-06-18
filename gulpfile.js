@@ -12,14 +12,17 @@ const
 // Gulp and plugins
 import gulp from "gulp";
 const { src, dest, series, watch } = gulp;
+import gulpif from "gulp-if";
 import newer from "gulp-newer";
 import imagemin from 'gulp-imagemin';
 import gulpSass from "gulp-sass";
 import deporder from "gulp-deporder";
-import stripdebug from "gulp-strip-debug";
 import uglify from "gulp-uglify";
 import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
+import sourcemaps from "gulp-sourcemaps";
+import {deleteAsync} from "del";
+import vinylPaths from 'vinyl-paths';
 
 // Image settings, assumes images are stored in the /img directory in the theme folder
 const images = {
@@ -66,7 +69,9 @@ const css = {
 
 async function processSass(dev = false) {
     return src(css.src)
+        .pipe(gulpif(dev, sourcemaps.init()))
         .pipe(sass(dev ? css.devOpts : css.sassOpts))
+        .pipe(gulpif(dev, sourcemaps.write('../maps')))
         .pipe(dest(`${css.build}`));
 }
 
@@ -85,17 +90,13 @@ const js = {
 };
 
 function processJs(dev = false) {
-    let jsOutput = gulp.src(js.src)
+    return src(js.src)
         .pipe(deporder())
-    //  .pipe(concat(js.filename))  Uncomment this line if you want to combine Javascript files
-
-    if (!dev) {
-        jsOutput = jsOutput.pipe(stripdebug())
-            .pipe(uglify());
-    }
-
-    jsOutput = jsOutput.pipe(gulp.dest(js.build));
-    return jsOutput;
+        .pipe(gulpif(dev, sourcemaps.init()))
+        //  .pipe(concat(js.filename))  Uncomment this line if you want to combine Javascript files
+        .pipe(gulpif(dev, sourcemaps.write('../maps')))
+        .pipe(gulpif(!dev, uglify()))
+        .pipe(dest(`${js.build}`));
 }
 
 // JavaScript processing
@@ -106,10 +107,15 @@ gulp.task('jsdev', async () => {
     processJs(true);
 });
 
-gulp.task('build', series('images', 'css', 'js'));
+gulp.task('clean', function () {
+    return src(dir.build)
+		.pipe(vinylPaths(deleteAsync));
+});
+
+gulp.task('build', series('clean', 'images', 'css', 'js'));
 
 // Files where changes should trigger a compile + reload
-gulp.task('watch', series('images', 'cssdev', 'jsdev', async () => {
+gulp.task('watch', series('clean', 'images', 'cssdev', 'jsdev', async () => {
 
     // image changes
     watch(images.src, series('images'));
