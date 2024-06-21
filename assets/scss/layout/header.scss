@@ -27,7 +27,12 @@ header.header {
 		transition: padding vars.$transition-time;
 
 		.hdr-logo {
-			width: 300px;
+			width: 30px;
+			background: url(../../img/wp-logo.png) no-repeat left 15px;
+			background-size: contain;
+			a {
+				opacity: 0;
+			}
 		}
 
 		nav {

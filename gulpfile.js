@@ -1,50 +1,46 @@
-// Gulp.js configuration for WordPress development with XAMPP
+// Gulp.js para desarrollo Wordpress
 'use strict';
 
-const
+// Directorios fuente y de destino
+const dir = {
+    src: './assets/',
+    build: './dist/'
+};
 
-    // Source and build folders
-    dir = {
-        src: './assets/',
-        build: './dist/'
-    };
-
-// Gulp and plugins
-import gulp from "gulp";
-const { src, dest, series, watch } = gulp;
-import gulpif from "gulp-if";
-import newer from "gulp-newer";
-import imagemin from 'gulp-imagemin';
-import gulpSass from "gulp-sass";
-import deporder from "gulp-deporder";
-import uglify from "gulp-uglify";
-import autoprefixer from "autoprefixer";
-import cssnano from "cssnano";
-import sourcemaps from "gulp-sourcemaps";
-import {deleteAsync} from "del";
+// Gulp y plugins
+import gulp, { src, dest, series, watch } from 'gulp';
+import { deleteAsync } from 'del';
+import gulpif from 'gulp-if';
+import gulpSass from 'gulp-sass';
+import deporder from 'gulp-deporder';
+import uglify from 'gulp-uglify';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import sourcemaps from 'gulp-sourcemaps';
 import vinylPaths from 'vinyl-paths';
+import replace from 'gulp-replace';
+import * as dartSass from 'sass';
 
-// Image settings, assumes images are stored in the /img directory in the theme folder
+// Ajustes para las imágenes: directorio fuente, imágenes 
+// a excluir y directorio de destino
 const images = {
-    src: dir.src + 'img/**/*',
-    exclude: [`!${dir.src}img/*.psd`, `!${dir.src}img/*.xcf`],
+    src: dir.src + 'img/**/*.{gif,jpg,png,svg}',
     build: dir.build + 'img/'
 };
-// image processing
-gulp.task('images', async () => {
-    let rules = [images.src];
-    rules = rules.concat(images.exclude);
-    return src(rules)
-        .pipe(newer(images.build))
-        .pipe(imagemin())
+
+// Función para procesamiento de imágenes
+async function processImages() {
+    return src(images.src, { "encoding": false })
         .pipe(dest(images.build));
+}
+
+// Tarea gulp para procesamiento de imágenes
+gulp.task('images', async () => {
+    processImages();
 });
 
-// CSS processing
-// CSS settings
-import * as dartSass from 'sass';
+// Ajustes SASS
 const sass = gulpSass(dartSass);
-
 const css = {
     src: dir.src + 'scss/main.scss',
     watch: dir.src + 'scss/**/*',
@@ -65,16 +61,17 @@ const css = {
     ]
 };
 
-// CSS processing
-
+// Función para procesamiento SASS
 async function processSass(dev = false) {
     return src(css.src)
         .pipe(gulpif(dev, sourcemaps.init()))
         .pipe(sass(dev ? css.devOpts : css.sassOpts))
         .pipe(gulpif(dev, sourcemaps.write('../maps')))
+        .pipe(replace('../img/', '../dist/img/'))
         .pipe(dest(`${css.build}`));
 }
 
+// Tareas gulp para SASS: prod y dev
 gulp.task('css', async () => {
     processSass(false)
 });
@@ -82,13 +79,14 @@ gulp.task('cssdev', async () => {
     processSass(true);
 });
 
-// JavaScript settings
+// Ajustes JavaScript
 const js = {
     src: dir.src + 'js/**/*',
     build: dir.build + 'js/',
     filename: 'scripts.js'
 };
 
+// FUnción para procesamiento Javascript
 function processJs(dev = false) {
     return src(js.src)
         .pipe(deporder())
@@ -99,7 +97,7 @@ function processJs(dev = false) {
         .pipe(dest(`${js.build}`));
 }
 
-// JavaScript processing
+// Tareas gulp para procesamiento Javascript: prod y dev
 gulp.task('js', async () => {
     processJs(false);
 });
@@ -107,22 +105,24 @@ gulp.task('jsdev', async () => {
     processJs(true);
 });
 
+// Tarea gulp para eliminar directorio de producción
 gulp.task('clean', function () {
-    return src(dir.build)
-		.pipe(vinylPaths(deleteAsync));
+    return src(dir.build, { "allowEmpty": true })
+        .pipe(vinylPaths(deleteAsync));
 });
 
+// Tarea gulp para producción
 gulp.task('build', series('clean', 'images', 'css', 'js'));
 
-// Files where changes should trigger a compile + reload
+// Tarea gulp para desarrollo
 gulp.task('watch', series('clean', 'images', 'cssdev', 'jsdev', async () => {
 
-    // image changes
+    // Atender a cambios en img
     watch(images.src, series('images'));
 
-    // CSS changes
+    // Atender a cambios en css
     watch(css.watch, series('cssdev'));
 
-    // JavaScript main changes
+    // Atender a cambios en js
     watch(js.src, series('jsdev'));
 }));
