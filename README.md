@@ -4,24 +4,24 @@ Esta plantilla usa como base el paquete [Starter Theme](https://github.com/timbe
 
 ## Instalación 
 
-Este repositorio ya tiene modificaciones para usar con gulp, así que puede optar por directamente clonar el repo o puede extender el *Timber Starter Theme* usando las capacidades de gulp incluidas en este repo.
+Este repositorio ya tiene modificaciones para usar con **Gulp**. Puede optar por a) clonar el repo o b) extender el **Timber Starter Theme** usando las capacidades de automatización incluidas en este repo.
 
-### Clonar
+### A. Clonar
 
 Puede clonar directamente este repositorio
 ```
 git clone git@bitbucket.org:baxtian/timber-starter-theme.git
 ```
 
-### Extender Timber Starter Theme
+### B. Extender Timber Starter Theme
 
-Crear el proyecto usnado la plantilla base de *Timber*.
+Crear el proyecto usando la plantilla base de **Timber**.
 
 ```
 composer create-project upstatement/timber-starter-theme --no-dev
 ```
 
-Habilitar entorno Gulp para automatización.
+Habilitar entorno **Gulp** para automatización.
 
 ```
 cd timber-starter-theme
@@ -69,4 +69,26 @@ Modificar el archivo *.gitignore*.
 Inicializar *git*
 ```
 git init
+```
+
+Ejecutar **Gulp**
+```
+npm start
+```
+
+En este punto el sistema creará el directorio **./dist** con los archivos de estilos y scripts generador por **Gulp**. Para incluirlos en el tema debe modificar el archivo **src/StarterSite.php**.
+
+Incluir en el método **__construct** en **src/StarterSite.php**.
+
+```
+add_action('wp_enqueue_scripts', [$this, 'wp_enqueue_scripts']);
+```
+
+Agregar el método *wp_enqueue_scripts* en **src/StarterSite.php**.
+```
+public function wp_enqueue_scripts()
+{
+    wp_enqueue_script('timber-starter', get_template_directory_uri() . '/dist/js/main.js', [], '1.2', true);
+    wp_enqueue_style('timber-starter', get_template_directory_uri() . '/dist/css/main.css', [], '1.2');
+}
 ```
