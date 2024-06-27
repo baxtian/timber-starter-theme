@@ -34,7 +34,14 @@
             "margin": true,
             "padding": true,
             "blockGap": null,
-            "units": [ "px", "em", "rem", "vh", "vw","%"]
+            "units": [
+                "px",
+                "em",
+                "rem",
+                "vh",
+                "vw",
+                "%"
+            ]
         },
         "border": {
             "color": true,

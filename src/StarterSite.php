@@ -2,17 +2,16 @@
 
 use Timber\Timber;
 use Timber\Site;
+use Timber\User;
 
 /**
- * Class StarterSite
+ * Clase StarterSite
  */
 class StarterSite extends Site
 {
 	public function __construct()
 	{
 		add_action('after_setup_theme', [$this, 'theme_supports']);
-		add_action('init', [$this, 'register_post_types']);
-		add_action('init', [$this, 'register_taxonomies']);
 
 		add_filter('timber/context', [$this, 'add_to_context']);
 		add_filter('timber/twig', [$this, 'add_to_twig']);
@@ -24,25 +23,9 @@ class StarterSite extends Site
 	}
 
 	/**
-	 * This is where you can register custom post types.
-	 */
-	public function register_post_types()
-	{
-
-	}
-
-	/**
-	 * This is where you can register custom taxonomies.
-	 */
-	public function register_taxonomies()
-	{
-
-	}
-
-	/**
-	 * This is where you add some context
+	 * Función para agregar variables de contexto
 	 *
-	 * @param string $context context['this'] Being the Twig's {{ this }}.
+	 * @param array $context Arreglo con variables de contexto.
 	 */
 	public function add_to_context($context)
 	{
@@ -55,29 +38,37 @@ class StarterSite extends Site
 		return $context;
 	}
 
+	/**
+	 * Función para agregar las capacidades de la plantilla
+	 *
+	 * @return void
+	 */
 	public function theme_supports()
 	{
-		// Add default posts and comments RSS feed links to head.
+		// Agregue enlaces de fuentes RSS de publicaciones 
+		// y comentarios predeterminados al encabezado.
 		add_theme_support('automatic-feed-links');
 
 		/*
-		 * Let WordPress manage the document title.
-		 * By adding theme support, we declare that this theme does not use a
-		 * hard-coded <title> tag in the document head, and expect WordPress to
-		 * provide it for us.
+		 * Deje que WordPress administre el título del documento.
+		 * Al agregar soporte para temas, declaramos que este tema no 
+		 * utiliza una etiqueta <title> codificada en el encabezado del 
+		 * documento y esperamos que WordPress nos la proporcione.
 		 */
 		add_theme_support('title-tag');
 
 		/*
-		 * Enable support for Post Thumbnails on posts and pages.
+		 * Habilite la compatibilidad con miniaturas de publicaciones
+		 * en publicaciones y páginas.
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
 		add_theme_support('post-thumbnails');
 
 		/*
-		 * Switch default core markup for search form, comment form, and comments
-		 * to output valid HTML5.
+		 * Cambie el marcado principal predeterminado para el formulario
+		 * de búsqueda, el formulario de comentarios y los comentarios
+		 * para generar HTML5 válido.
 		 */
 		add_theme_support(
 			'html5',
@@ -89,27 +80,15 @@ class StarterSite extends Site
 			]
 		);
 
-		/*
-		 * Enable support for Post Formats.
-		 *
-		 * See: https://codex.wordpress.org/Post_Formats
-		 */
-		add_theme_support(
-			'post-formats',
-			[
-				'aside',
-				'image',
-				'video',
-				'quote',
-				'link',
-				'gallery',
-				'audio',
-			]
-		);
-
+		// Agregar soporte para menús.
 		add_theme_support('menus');
 	}
 
+	/**
+	 * Función apra encolar estilos y scripts compilados por gulp
+	 *
+	 * @return void
+	 */
 	public function wp_enqueue_scripts()
 	{
 		wp_enqueue_script('timber-starter', get_template_directory_uri() . '/dist/js/main.js', [], '1.2', true);
@@ -117,9 +96,9 @@ class StarterSite extends Site
 	}
 
 	/**
-	 * his would return 'foo bar!'.
+	 * Función para atender el filtro 'myfoo' en plantillas Twig.
 	 *
-	 * @param string $text being 'foo', then returned 'foo bar!'.
+	 * @param string $text Texto al que se concatenará la cadena ' bar'.
 	 */
 	public function myfoo($text)
 	{
@@ -128,21 +107,29 @@ class StarterSite extends Site
 		return $text;
 	}
 
-	public function caracteres($author) {
-		if(empty($author)) return 0;
+	/**
+	 * Función para atender la función 'caracteres' en plantillas Twig.
+	 *
+	 * @param Timber\User $author Recibe una instancia del usuario.
+	 */
+	public function caracteres($author)
+	{
+		if(empty($author)) {
+			return 0;
+		}
 
 		return strlen($author->name());
 	}
 
 	/**
-	 * This is where you can add your own functions to twig.
+	 * Acá se pueden agregar funciones y filtros.
 	 *
 	 * @param Twig\Environment $twig get extension.
 	 */
 	public function add_to_twig($twig)
 	{
 		/*
-		 * Required when you want to use Twig’s template_from_string.
+		 * Requerido cuando desea utilizar template_from_string de Twig.
 		 * @link https://twig.symfony.com/doc/3.x/functions/template_from_string.html
 		 */
 		// $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
@@ -154,11 +141,11 @@ class StarterSite extends Site
 	}
 
 	/**
-	 * Updates Twig environment options.
+	 * Actualiza las opciones del entorno Twig.
 	 *
 	 * @link https://twig.symfony.com/doc/2.x/api.html#environment-options
 	 *
-	 * \@param array $options An array of environment options.
+	 * \@param array $options Arreglo con las variables de entorno.
 	 *
 	 * @return array
 	 */
