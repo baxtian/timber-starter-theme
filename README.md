@@ -19,13 +19,13 @@ Crear el proyecto usando la plantilla base de **Timber**.
 
 ```
 composer create-project upstatement/timber-starter-theme --no-dev
+
+cd timber-starter-theme
 ```
 
 Habilitar entorno **Gulp** para automatización.
 
 ```
-cd timber-starter-theme
-
 npm init --yes
 
 npm i --save-dev gulp gulp-deporder gulp-if gulp-replace gulp-sass gulp-sourcemaps gulp-uglify sass vinyl-paths autoprefixer cssnano del
@@ -34,11 +34,7 @@ npm i --save-dev gulp gulp-deporder gulp-if gulp-replace gulp-sass gulp-sourcema
 Descargar elementos de automatización.
 
 ```
-wget https://bitbucket.org/baxtian/timber-starter-theme/downloads/auto.zip
-
-unzip auto.zip
-
-rm auto.zip
+wget https://bitbucket.org/baxtian/timber-starter-theme/downloads/auto.zip && unzip auto.zip && rm auto.zip
 ```
 
 Modificar el archivo *package.json*.
@@ -47,7 +43,7 @@ Modificar el archivo *package.json*.
 	...
 	"main": "",
     ...
-    "type": "module"
+    "type": "module",
     "scripts": {
         "start": "gulp watch",
         "build": "gulp build",
@@ -78,10 +74,17 @@ npm start
 
 En este punto el sistema creará el directorio **./dist** con los archivos de estilos y scripts generador por **Gulp**. Para incluirlos en el tema debe modificar el archivo **src/StarterSite.php**.
 
-Incluir en el método **__construct** en **src/StarterSite.php**.
+Incluir en el método **__construct** en **src/StarterSite.php** antes de llamar al constructor del padre.
 
 ```
-add_action('wp_enqueue_scripts', [$this, 'wp_enqueue_scripts']);
+public function __construct()
+{
+    ...
+
+    add_action('wp_enqueue_scripts', [$this, 'wp_enqueue_scripts']);
+
+    parent::__construct();
+}
 ```
 
 Agregar el método *wp_enqueue_scripts* en **src/StarterSite.php**.
