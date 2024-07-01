@@ -12,4 +12,10 @@
 use Timber\Timber;
 
 $context = Timber::context();
+$context['posts'] = Timber::get_posts([
+	'post_type' => 'post'
+]);
+
 Timber::render('404.twig', $context);
+
+

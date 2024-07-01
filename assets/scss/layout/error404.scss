@@ -1,0 +1,31 @@
+@use "../base/vars";
+@use "../base/colors";
+
+body.error404 {
+	section#content {
+		.wrapper {
+			width: vars.$max-width;
+			margin: 0 auto;
+
+			.message {
+				font-size: 2em;
+				text-align: center;
+				padding: 10px 0 30px;
+			}
+
+			.posts {
+				article.tease {
+					padding-bottom: 20px;
+					h2 {
+						padding-bottom: 5px;
+					}
+					img {
+						margin-top: 10px;
+						width: 100px;
+						height: auto;
+					}
+				}
+			}
+		}
+	}
+}

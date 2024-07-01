@@ -1,5 +1,11 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	Sorry, we couldn't find what you're looking for.
+	<p class="message">Sorry, we couldn't find what you're looking for.</p>
+
+	<div class="posts">
+	{% for item in posts %}
+		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] with {post: item} %}
+	{% endfor %}
+	</div>
 {% endblock %}
