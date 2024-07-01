@@ -1,0 +1,20 @@
+@use "../base/colors";
+
+ul.wp-block-latest-posts__list {
+	li {
+		padding-top: 20px;
+		clear: both;
+		border-bottom: 1px solid colors.$color-secundary;
+		min-height: 135px;
+		&:last-of-type {
+			border-bottom: none;
+		}
+		.wp-block-latest-posts__post-title {
+			padding: 5px 0;
+		}
+		.wp-block-latest-posts__featured-image img {
+			width: 100px;
+			height: auto;
+		}
+	}
+}
