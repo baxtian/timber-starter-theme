@@ -59,6 +59,7 @@ Modificar el archivo *.gitignore*.
 /vendor/
 /node_modules/
 /dist/
+/.vscode/
 /package-lock.json
 ```
 
